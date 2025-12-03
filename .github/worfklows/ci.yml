@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -e .
+          python -m playwright install --with-deps
+
+      # Warning: This is an example ci: ONLY run in a Private Repo!!
+      - name: Run tests
+        env:
+          EPICOR_BASE_URL: ${{ secrets.EPICOR_BASE_URL }}
+          EPICOR_USERNAME: ${{ secrets.EPICOR_USERNAME }}
+          EPICOR_PASSWORD: ${{ secrets.EPICOR_PASSWORD }}
+          PLAYWRIGHT_HEADLESS: "true"
+          PLAYWRIGHT_SLOW_MO_MS: "0"
+        run: |
+          source .venv/bin/activate
+          pytest -v

@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# Project
+epicor_state.json
+.venv/
+playwright-report/
+
 # Distribution / packaging
 .Python
 build/
