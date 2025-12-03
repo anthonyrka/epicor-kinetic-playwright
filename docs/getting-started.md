@@ -17,7 +17,7 @@ against your own Epicor Kinetic environment.
 ## 2. Clone and create a virtual environment
 
 ```bash
-git clone https://github.com/<your-gh-user>/epicor-kinetic-playwright.git
+git clone https://github.com/anthonyrka/epicor-kinetic-playwright.git
 cd epicor-kinetic-playwright
 
 python -m venv .venv
